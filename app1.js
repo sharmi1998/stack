@@ -1,6 +1,7 @@
 const Express=require('express')
 var as=new Express();
 as.set('view engine','ejs')
+as.use(Express.static(__dirname+"/public"));
 books=[
     {
         'title':'In search of Lost Time',
@@ -109,6 +110,6 @@ as.get('/addbook',(req,res)=>{
 as.get('/viewbook',(req,res)=>{
     res.render('index5',{title:'viewbook'});
 });
-as.listen(3003,()=>{
+as.listen(process.env.PORT || 3003,()=>{
     console.log("server is running on http://localhost:3003")
 });
