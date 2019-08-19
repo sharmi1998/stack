@@ -1,7 +1,10 @@
 const Express=require('express')
 var as=new Express();
+var bodyParser=require('body-parser')
 as.set('view engine','ejs')
 as.use(Express.static(__dirname+"/public"));
+as.use(bodyParser.json());
+as.use(bodyParser.urlencoded({extended:true}))
 books=[
     {
         'title':'In search of Lost Time',
@@ -110,6 +113,12 @@ as.get('/addbook',(req,res)=>{
 as.get('/viewbook',(req,res)=>{
     res.render('index5',{title:'viewbook'});
 });
+as.post('/read',(req,res)=>{
+var name=req.body;
+//console.log(name)
+//res.send(req.body)
+res.render('read',{name:name})
+})
 as.listen(process.env.PORT || 3003,()=>{
     console.log("server is running on http://localhost:3003")
 });
